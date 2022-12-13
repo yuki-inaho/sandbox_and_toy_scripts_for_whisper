@@ -1,0 +1,2 @@
+-e git+https://github.com/openai/whisper#egg=whisper
+-f https://download.pytorch.org/whl/cu113 torch==1.12.1+cu113

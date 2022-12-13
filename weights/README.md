@@ -1,0 +1,1 @@
+See [whisper/__init__.py](https://github.com/openai/whisper/blob/main/whisper/__init__.py)
