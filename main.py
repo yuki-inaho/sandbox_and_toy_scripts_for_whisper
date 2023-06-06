@@ -3,7 +3,6 @@ import whisper
 from pathlib import Path
 from typing import Iterator, TextIO
 
-
 def write_txt(transcript: Iterator[dict], file: TextIO):
     for segment in transcript:
         print(segment["text"].strip(), file=file, flush=True)
@@ -12,10 +11,9 @@ def write_txt(transcript: Iterator[dict], file: TextIO):
 """ Set the audio file path and weight path
 """
 audio_dir_pathlib = Path("./data")
-audio_name = Path("audio.mp3")
+audio_name = Path("230607_0014.mp3")
 audio_path = str(audio_dir_pathlib.joinpath(audio_name))
 
-weights_dir_pathlib = Path("./whisper")
 weights_name = "large-v2.pt"
 
 output_txt_path = Path(audio_name).stem + ".txt"
@@ -23,7 +21,7 @@ output_txt_path = Path(audio_name).stem + ".txt"
 """ Loading the model
 """
 start = time.time()
-model = whisper.load_model(str(weights_dir_pathlib.joinpath(weights_name)), device="cpu")
+model = whisper.load_model("large-v2", device="cpu")
 model.half()
 model.cuda()
 for m in model.modules():
