@@ -1,2 +1,8 @@
--e git+https://github.com/openai/whisper#egg=whisper
--f https://download.pytorch.org/whl/cu113 torch==1.12.1+cu113
+openai-whisper
+
+# for CUDA 11.7
+torch==2.0.1
+torchaudio==2.0.2
+transformers
+accelerate
+datasets[audio]
