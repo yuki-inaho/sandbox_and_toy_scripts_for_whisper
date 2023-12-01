@@ -35,16 +35,16 @@ def main(args):
     print(f"Loading the whisper model is done. Elapsed: {end-start}")
 
     """ Run transcription (with GPU) """
-    without_timestamps = not args.with_timestamps
-    print(f"Start transcription without timestamps: {without_timestamps}")
+    print(f"Start transcription [with timestamps] flag: {args.with_timestamps}")
     start = time.time()
     result = model.transcribe(
         audio_path,
+        temperature=args.temperature,
         verbose=args.verbose,
         language=args.language,
         beam_size=args.beam_size,
         fp16=args.fp16,
-        without_timestamps=without_timestamps,
+        word_timestamps=args.with_timestamps,
     )
     end = time.time()
     print(f"Transcription is done, Elapsed: {end-start}")
@@ -78,6 +78,9 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--beam-size", type=int, default=5, help="Beam size for the model"
+    )
+    parser.add_argument(
+        "-t", "--temperature", type=float, default=0.0, help="Temperature for the model"
     )
     parser.add_argument("--fp16", action="store_true", help="Use half precision")
     parser.add_argument(
