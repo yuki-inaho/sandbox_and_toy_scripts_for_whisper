@@ -35,6 +35,8 @@ def main(args):
     print(f"Loading the whisper model is done. Elapsed: {end-start}")
 
     """ Run transcription (with GPU) """
+    without_timestamps = not args.with_timestamps
+    print(f"Start transcription without timestamps: {without_timestamps}")
     start = time.time()
     result = model.transcribe(
         audio_path,
@@ -42,7 +44,7 @@ def main(args):
         language=args.language,
         beam_size=args.beam_size,
         fp16=args.fp16,
-        without_timestamps=args.without_timestamps,
+        without_timestamps=without_timestamps,
     )
     end = time.time()
     print(f"Transcription is done, Elapsed: {end-start}")
@@ -55,7 +57,8 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Transcribe audio files using Whisper")
     parser.add_argument(
-        "-a", "--audio-file-path",
+        "-a",
+        "--audio-file-path",
         type=str,
         default="data",
         help="Path to the audio file",
@@ -78,8 +81,8 @@ if __name__ == "__main__":
     )
     parser.add_argument("--fp16", action="store_true", help="Use half precision")
     parser.add_argument(
-        "-wot",
-        "--without-timestamps",
+        "-wit",
+        "--with-timestamps",
         action="store_true",
         help="Do not include timestamps in transcription",
     )
